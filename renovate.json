@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["regexManagers:dockerfileVersions"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "minor", "major"],
+      "postUpgradeTasks": {
+        "commands": [
+          "git diff --name-only HEAD | grep 'Dockerfile' | while read -r dockerfile; do awk -F'\"' '/^LABEL version = / {print $2}' \"$dockerfile\" | awk -F. '{ $NF = $NF + 1 } 1' OFS='.' | xargs -I {} sed -i 's/^LABEL version = \".*\"/LABEL version = \"{}\"/' \"$dockerfile\"; done"
+        ],
+        "fileFilters": ["Containerfile"],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "matchDatasources": ["custom.azcopy"],
+      "postUpgradeTasks": {
+        "commands": [
+          "azcopy_version_date=$(curl -sI https://aka.ms/downloadazcopy-v10-linux | grep ^Location | awk -F'[-/]' '{print $(NF-1)}'); git diff --name-only HEAD | grep 'Dockerfile' | while read -r dockerfile; do sed -i \"s/ENV AZCOPY_VERSION_DATE=.*/ENV AZCOPY_VERSION_DATE=$azcopy_version_date/\" \"$dockerfile\"; done"
+        ],
+        "fileFilters": ["Containerfile"],
+        "executionMode": "branch"
+      }
+    }
+  ],
+  "customDatasources": {
+    "azcopy": {
+      "defaultRegistryUrlTemplate": "https://azcopyvnextrelease.blob.core.windows.net/releasemetadata/latest_version.txt",
+      "format": "plain"
+    }
+  }
+}
