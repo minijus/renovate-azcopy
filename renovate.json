@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["regexManagers:dockerfileVersions"],
+  "allowPostUpgradeCommandTemplating": true,
+  "allowedPostUpgradeCommands": ["^.*"],
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "minor", "major"],
