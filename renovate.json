@@ -24,11 +24,19 @@
         "fileFilters": ["Containerfile"],
         "executionMode": "branch"
       }
+    },
+    {
+      "matchPackageNames": ["kubernetes"],
+      "extractVersion": "^v(?<version>.*)$"
     }
   ],
   "customDatasources": {
     "azcopy": {
       "defaultRegistryUrlTemplate": "https://azcopyvnextrelease.blob.core.windows.net/releasemetadata/latest_version.txt",
+      "format": "plain"
+    },
+    "kubernetes": {
+      "defaultRegistryUrlTemplate": "https://dl.k8s.io/release/stable.txt",
       "format": "plain"
     }
   }
