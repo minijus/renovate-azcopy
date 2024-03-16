@@ -1,7 +1,7 @@
 LABEL version = "0.0.7"
 
 # renovate: datasource=custom.kubernetes depName=kubernetes
-ENV KUBERNETES_VERSION=1.0.0
+ENV KUBERNETES_VERSION=1.29.3
 
 # renovate: datasource=custom.azcopy depName=azcopy
 ENV AZCOPY_VERSION=10.22.1
