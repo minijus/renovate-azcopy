@@ -4,7 +4,7 @@ LABEL version = "0.0.7"
 ENV KUBERNETES_VERSION=1.0.0
 
 # renovate: datasource=custom.azcopy depName=azcopy
-ENV AZCOPY_VERSION=10.22.1
+ENV AZCOPY_VERSION=10.24.0
 ENV AZCOPY_VERSION_DATE=20231220
 
 # Install azcopy
